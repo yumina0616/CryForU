@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>I'll Cry For You</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="desktop" id="desktop">
+
+    <h1 class="title">I'll Cry For You</h1>
+
+    <!-- 고정 요소: 얼굴 -->
+    <div class="face-frame">
+      <img id="faceImg" src="assets/faces/face-neutral.png" alt="face">
+    </div>
+
+    <!-- 고정 요소: 재생/일시정지 버튼 -->
+    <button class="play-btn" id="playBtn">
+      <img id="playIcon" src="assets/icons/play.png" alt="play">
+    </button>
+
+    <!-- 쓰레기통 -->
+    <div class="desktop-icon" id="trashIcon" data-gx="0" data-gy="0">
+      <img src="assets/icons/trash.png" alt="trash">
+    </div>
+
+    <!-- 휴지박스 -->
+    <div class="desktop-icon" id="tissueBoxIcon" data-gx="6" data-gy="0">
+      <img src="assets/icons/tissue-box.png" alt="tissue box">
+      <div class="hold-loader" id="holdLoader"></div>
+    </div>
+
+    <!-- 뽑힌 휴지(동적 생성)는 여기 append됨 -->
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+:root{
+  --grid: 120px;
+  --ink: #2b2b2b;
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body{
+  font-family: -apple-system, 'Segoe UI', 'Pretendard', sans-serif;
+  background: #f4f4f4;
+  color: var(--ink);
+  overflow: hidden;
+}
+
+/* 전체 캔버스 영역 - 아이콘들이 그리드 위에 배치되는 공간 */
+.desktop{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.title{
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  margin: 0;
+  pointer-events: none;
+}
+
+/* 고정 요소: 얼굴 프레임 */
+.face-frame{
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(55vw, 480px);
+  aspect-ratio: 3 / 4;
+  background: #e8e8e8;
+  border: 1px solid #ddd;
+  overflow: hidden;
+}
+
+.face-frame img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== 눈물방울 ===== */
+/* 얼굴 프레임 내부에 절대좌표로 배치되는 레이어 */
+.tear{
+  position: absolute;
+  pointer-events: none;
+  z-index: 5;
+  will-change: transform, opacity;
+  background: #a8c8e8;
+  border-radius: 50%;
+}
+
+@keyframes tear-fall{
+  0%{
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10%{
+    opacity: 1;
+  }
+  100%{
+    transform: translate(var(--sway), var(--fall));
+    opacity: 0;
+  }
+}
+
+.tear.falling{
+  animation: tear-fall var(--duration) ease-in forwards;
+}
+
+/* 고정 요소: 재생 버튼 */
+.play-btn{
+  position: absolute;
+  top: calc(130px + min(55vw, 480px) * (4/3) + 40px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 64px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.play-btn img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* ===== 그리드 스냅 아이콘 ===== */
+.desktop-icon{
+  position: absolute;
+  width: var(--grid);
+  height: var(--grid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  border-radius: 6px;
+  transition: background-color 0.12s ease;
+  user-select: none;
+  touch-action: none;
+}
+
+.desktop-icon img{
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* ===== Placeholder 도형 (이미지 에셋 없을 때 임시) ===== */
+.placeholder-box{
+  width: 60%;
+  height: 60%;
+  pointer-events: none;
+}
+
+.trash-shape{
+  background: #d88;
+  border-radius: 4px;
+}
+
+.tissue-shape{
+  background: #fbb6ce;
+  border-radius: 4px;
+}
+
+.play-shape{
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--ink);
+  /* 재생 = 삼각형 */
+  clip-path: polygon(20% 10%, 20% 90%, 90% 50%);
+}
+
+.play-shape.paused{
+  clip-path: none;
+  /* 일시정지 = 두 막대 (box-shadow로 두 번째 막대 표현) */
+  width: 30%;
+  margin-left: 25%;
+  box-shadow: 18px 0 0 var(--ink);
+}
+
+/* 호버 시 반투명 하이라이트 박스 */
+.desktop-icon:hover,
+.desktop-icon.dragging{
+  background-color: rgba(120, 170, 220, 0.18);
+}
+
+.desktop-icon.dragging{
+  cursor: grabbing;
+  z-index: 50;
+  /* 스냅 이동을 "뚝뚝" 끊기게 보이도록 transform 트랜지션 없음 */
+}
+
+/* 휴지박스 hold 로딩 인디케이터 */
+.hold-loader{
+  position: absolute;
+  left: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: conic-gradient(var(--ink) 0deg, transparent 0deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hold-loader.active{
+  opacity: 1;
+}
+
+/* ===== 뽑힌 휴지(드래그 가능, 자유 이동) ===== */
+.tissue-item{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  cursor: grab;
+  touch-action: none;
+  z-index: 100;
+}
+
+.tissue-item img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.tissue-item .placeholder-box{
+  width: 100%;
+  height: 100%;
+}
+
+.tissue-item.dragging{
+  cursor: grabbing;
+  z-index: 200;
+}
+
+/* 쓰레기통 드롭 시 강조 */
+#trashIcon.drop-target{
+  background-color: rgba(220, 120, 120, 0.25);
+}
