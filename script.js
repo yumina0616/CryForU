@@ -21,16 +21,16 @@ function playSound(audio){
 // 그리드 스냅 드래그 (쓰레기통, 휴지박스)
 // ===================================================
 function makeGridDraggable(el){
-  function applyGridPosition(gx, gy){
-    el.style.left = (gx * GRID) + 'px';
-    el.style.top  = (gy * GRID) + 'px';
-    el.dataset.gx = gx;
-    el.dataset.gy = gy;
+  function applyInitialPosition(el){
+    if(el.id === 'tissueBoxIcon'){
+      el.style.left = '27vw';
+      el.style.top  = '48vh';
+    } else if(el.id === 'trashIcon'){
+      el.style.left = '27vw';
+      el.style.top  = '60vh';
+    }
   }
-  applyGridPosition(
-    parseInt(el.dataset.gx || '0', 10),
-    parseInt(el.dataset.gy || '0', 10)
-  );
+  applyInitialPosition(el);
 
   let dragging = false;
   let startX = 0, startY = 0;
@@ -263,7 +263,7 @@ function startCrying(){
     EYE_POSITIONS.forEach(eye=>{
       if(Math.random() < 0.8) spawnTear(eye);
     });
-    tearInterval = setTimeout(tick, 200 + Math.random() * 150);
+    tearInterval = setTimeout(tick, 150 + Math.random() * 150);
   }
   tick();
 }
