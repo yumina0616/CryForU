@@ -1,6 +1,6 @@
 # I'll Cry For You
 
-🔗 **[Live Demo](https://yumina0616.github.io/CryforU)**
+🔗 **[Live Demo](https://yumina0616.github.io/CryForU)**
 
 A web experience that cries for you — so you don't have to.  
 My first interactive web project, built out of a love for interactive web design.
