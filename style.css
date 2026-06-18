@@ -13,10 +13,14 @@ html, body{
 }
 
 body{
-  font-family: -apple-system, 'Segoe UI', 'Pretendard', sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   background: #f4f4f4;
   color: var(--ink);
   overflow: hidden;
+  
+  font-optical-sizing: auto;
+  font-weight: 0;
+  font-style: normal;
 }
 
 /* 전체 캔버스 영역 - 아이콘들이 그리드 위에 배치되는 공간 */
@@ -28,7 +32,7 @@ body{
 
 .title{
   position: absolute;
-  top: 40px;
+  top: 100px;
   left: 0;
   width: 100%;
   text-align: center;
@@ -41,9 +45,9 @@ body{
 /* 고정 요소: 얼굴 프레임 */
 .face-frame{
   position: absolute;
-  top: 130px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   width: min(55vw, 480px);
   aspect-ratio: 3 / 4;
   background: #e8e8e8;
@@ -90,11 +94,11 @@ body{
 /* 고정 요소: 재생 버튼 */
 .play-btn{
   position: absolute;
-  top: calc(130px + min(55vw, 480px) * (4/3) + 40px);
+  top: calc(130px + min(55vw, 480px) * (4/3) + 90px);
   left: 50%;
   transform: translateX(-50%);
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   border: none;
   background: transparent;
   cursor: pointer;
