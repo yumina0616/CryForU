@@ -17,38 +17,39 @@ body{
   background: #f4f4f4;
   color: var(--ink);
   overflow: hidden;
-  
   font-optical-sizing: auto;
   font-weight: 0;
   font-style: normal;
 }
 
-/* 전체 캔버스 영역 - 아이콘들이 그리드 위에 배치되는 공간 */
 .desktop{
   position: relative;
   width: 100vw;
   height: 100vh;
 }
 
+/* 타이틀: 화면 상단 5vh */
 .title{
   position: absolute;
-  top: 100px;
+  top: 5vh;
   left: 0;
   width: 100%;
   text-align: center;
-  font-size: clamp(28px, 4vw, 44px);
+  font-size: clamp(20px, 3vw, 40px);
   font-weight: 700;
   margin: 0;
   pointer-events: none;
 }
 
-/* 고정 요소: 얼굴 프레임 */
+/* 얼굴 프레임: 화면 정중앙 */
 .face-frame{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(55vw, 480px);
+  /* 세로 기준으로 크기 잡아서 줌에 덜 민감하게 */
+  height: 72vh;
+  width: auto;
   aspect-ratio: 3 / 4;
   background: #e8e8e8;
   border: 1px solid #ddd;
@@ -62,8 +63,7 @@ body{
   display: block;
 }
 
-/* ===== 눈물방울 ===== */
-/* 얼굴 프레임 내부에 절대좌표로 배치되는 레이어 */
+/* 눈물방울 */
 .tear{
   position: absolute;
   pointer-events: none;
@@ -91,14 +91,14 @@ body{
   animation: tear-fall var(--duration) ease-in forwards;
 }
 
-/* 고정 요소: 재생 버튼 */
+/* 재생 버튼: 얼굴 프레임 아래 중앙 */
 .play-btn{
   position: absolute;
-  top: calc(130px + min(55vw, 480px) * (4/3) + 90px);
+  top: calc(50% + 36vh + 3vh);
   left: 50%;
   transform: translateX(-50%);
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -112,7 +112,7 @@ body{
   pointer-events: none;
 }
 
-/* ===== 그리드 스냅 아이콘 ===== */
+/* 그리드 스냅 아이콘 */
 .desktop-icon{
   position: absolute;
   width: var(--grid);
@@ -134,7 +134,7 @@ body{
   pointer-events: none;
 }
 
-/* ===== Placeholder 도형 (이미지 에셋 없을 때 임시) ===== */
+/* Placeholder 도형 */
 .placeholder-box{
   width: 60%;
   height: 60%;
@@ -156,19 +156,17 @@ body{
   width: 100%;
   height: 100%;
   background: var(--ink);
-  /* 재생 = 삼각형 */
   clip-path: polygon(20% 10%, 20% 90%, 90% 50%);
 }
 
 .play-shape.paused{
   clip-path: none;
-  /* 일시정지 = 두 막대 (box-shadow로 두 번째 막대 표현) */
   width: 30%;
   margin-left: 25%;
   box-shadow: 18px 0 0 var(--ink);
 }
 
-/* 호버 시 반투명 하이라이트 박스 */
+/* 호버 시 반투명 하이라이트 */
 .desktop-icon:hover,
 .desktop-icon.dragging{
   background-color: rgba(120, 170, 220, 0.18);
@@ -177,10 +175,9 @@ body{
 .desktop-icon.dragging{
   cursor: grabbing;
   z-index: 50;
-  /* 스냅 이동을 "뚝뚝" 끊기게 보이도록 transform 트랜지션 없음 */
 }
 
-/* 휴지박스 hold 로딩 인디케이터 */
+/* hold 로딩 인디케이터 */
 .hold-loader{
   position: absolute;
   left: calc(100% + 6px);
@@ -198,7 +195,7 @@ body{
   opacity: 1;
 }
 
-/* ===== 뽑힌 휴지(드래그 가능, 자유 이동) ===== */
+/* 뽑힌 휴지 */
 .tissue-item{
   position: absolute;
   width: 100px;
@@ -225,7 +222,7 @@ body{
   z-index: 200;
 }
 
-/* 쓰레기통 드롭 시 강조 */
+/* 쓰레기통 드롭 강조 */
 #trashIcon.drop-target{
   background-color: rgba(220, 120, 120, 0.25);
 }
